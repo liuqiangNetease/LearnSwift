@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:namespace/namespace.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SwiftCallOC/SwiftCallOC.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:IOSHello/IOSHello.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Class/Class.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Function/Function.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:CommandLineHello/CommandLineHello.xcodeproj">
+   </FileRef>
+</Workspace>
