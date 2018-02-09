@@ -1,0 +1,259 @@
+1. Optional
+
+
+An Optional is just an enum
+Enum Optional<T>
+{
+Case None
+Case Some(T)
+}
+
+Let x: String? nil
+Let x = Optional<String>.None
+Let x: String?= “hello”
+Let x = Optional<String>.Some(“hello”)
+
+Var y = x!
+Switch x
+{
+  Case Some(let value): y = value
+  Case None: //rasie an exception. (crash)
+}
+
+
+
+2  Array
+
+
+Var a = Array<String>()   is the same as   Var a = [String]()
+
+Let animals = [“dog”,”bird”,”cow”]
+animals.append(“pig”]//compile fail.  Animals is immutable( because of let)
+Let animal = animals[5] //crash (array index out of bounds)
+//enumerating an Array
+for animal in animals{ print(“\(animal)”)  }
+ 
+  Dictionary
+  Var dies = Dictionary<String, Int>() is the same as  var dics= [String:Int]()
+For (key, value) in digs{ print(“\(key) = \(value)”)}
+
+
+
+
+3 Range
+
+  A Range is just two end points of a sensible type
+   Range is generic(e.g. Range<T>)
+  Pseudo-representation of Range
+  Struck Range<T>{
+     Var startIndex: T
+     Var endIndex: T}
+
+  An Array Range would be a Range<Int> (since Arrays are indexed by Int)
+Warning: A string subrange is not Range<Int>. (It is Range<String.Index>)
+
+   Let array = [“a”, “b”, “c”, “d”]
+   Let subArray = array[2…3] //subArray1 will be [“c”,”d”]
+   Let subArray2 = array[2..<3] //subArray2 will be [“c”]
+   For i in [27…104] {} 
+
+
+4. Data Structures in Swift
+   Classes, structures and Enumerations
+  
+   Inheritance (class only)   introspection and casting(class only)
+  Value type(struct, enum).  Lazy copy
+ vs. Reference type(class):  stored in heap and reference counted(auto)
+
+ 
+5 Methods
+  Override final (class and method)
+
+  Parameters Names
+  All parameters to all functions have an external name and internal name
+
+  Func foo(external internal : Int){ let local = internal}
+  Func bar(){ let result = foo(external: 123)}
+
+  You can put _ if u do not want callers to use an external name
+  You can force the first parameter external name to be the internal name with #
+  For other(not the first)parameters, the internal name is, by default, the external name
+
+
+6 Properties
+  Property observers
+  You can observe changes to any property with willSet and ditSet
+  
+override  Var p: Int = 42   //也可以加上override
+{
+   willSet(newValue is the new value)
+   didSet(oldValue is the old value) 
+}
+
+  Lazy initialization
+  A lazy property does not get initialized until someone accesses it
+  You can allocate an object, execute a closure, or call a method if u want
+    
+Lazy var brain = CalcuatorBrain(). //nice if calculatorBrain used lots of resources
+
+Lazy var someProperty: Type= {}()
+Lazy var myProperty = self.initialzeMyProperty()
+
+
+
+10 Initialation
+   Free init methods
+  If all properties in a base class(no superclass) have defaults, u get init() for free
+  If a struct has no initializers, it will get a default one with all properties as arguments
+
+   Struct MyStruct{.  Var x:Int = 42.  Var y:String = “liuqiang”
+       init(x: Int, y:String) //comes for free
+    }
+
+   What can u do inside an Init?
+   U can set any property value, even those with default values
+   Constant properties also can be set
+   Call other init methods using self.init(<args>) or super.init<args>
+   By the time any init is done, all properties must have values(optionals can has the value nil)
+   There are two types of inits int a class, convenience and designated
+   A designated init must(and can only) call a designated init that is in its immediate
+  Superclass 
+  You must initialize all properties introduced by your class before calling a superclass init 
+  You must call a superclass init before you assign a value to an inherited property
+  A convenience init must (and can only) call a designated init in its own class
+A convenience init may call a designated int indirectly( through another convenience init)
+A convenience init must call a designated init before it can set any property values
+The calling of other inits must be complete before u can access properties or invoke methods
+
+   Inheriting init
+ If u do not implement any designated inits, u will inherit all of your superclass designated
+If u override all of your superclass designated inits, u will inherit all its convenience inits
+ If you implement no inits, you will inherit all of your superclass inits
+Any init inherited by these rules qualifies to satisfy any of the rules on the previous slide
+
+
+    Required init
+  A class can mark one or more of its init methods as required
+ Any subclass must implement said init methods(though they can be inherited per above relues)
+
+   Failable init
+If an init is declared with a?(or!)after the word init, it returns an Optional
+   Init?(arg1: Type1,…){
+    //might return nil here}
+
+   
+
+   AnyObject
+
+ //cast
+ If let calcVc = destinationViewController as? CalculatorViewController {}
+ 或者 if destinationViewController is CalculatorViewController {} else{}
+
+ Functions
+  Some Array<T> Methods
+   += [T] // not += T
+   First-> T? //optional
+   Last->T?//optional
+
+   Var a = [a,b,c] 
+   append(T)
+   insert(T, atIndex:Int) // a.insert(d, atIndex:1),  a= [a,d,b,c]
+   splice(Array<T>, atIndex:Int) //a.splice([d,e], atIndex:1) ,  a=[a,d,e,b,c]
+   removeAtIndex(Int) //a.removeAtIndex(1). , a=[a,c]
+   removeRange(Range) // a.removeRange(0..<2), a=[c]
+   replaceRange(Range, [T])// a.replaceRange(0…1, with:[x,y,z]),   a=[x,y,z,b]  
+   sort( isOrderedBefore: (T,T)) ->Bool // a.sort{ $0 < $1}
+   filter(includeElement: (T)->Bool) -> [T]
+
+   map(transform: (T)->(U))-> [U]
+   Let stringified: [String] = [1,2,3].map { “\($0)”} //map Int array to String array
+
+
+   String
+
+ Var s = “Hello”
+ Let index = advance(s.startIndex, 2). //index is a String.Index “l”
+ s.splice(“abc”,index) // s will now be “heabcllo”
+
+ Let startIndex = advance(s.startIndex, 1)
+ Let endIndex = advance(s.startIndex, 6)
+ Let subString = s[startIndex..<endIndex] // subString will be “eabcl”
+
+ rangeOfString returns an Optional Range<String.Index>
+ E.g. to get whole number part of a string representing a double
+ Let num = “56.23”
+ If let decimalRange = num.rangeOfString(“.”){//decimalRange is Range<String.Index>
+      Let wholeNumberPart = num[num.startIndex..<decimalRange.startIndex]}
+
+ We could remove the whole number part using 
+  s.removeRange([s.startIndex..< decimalRange.startIndex])
+  There is also replaceRange(Range,String)
+
+  join(Array)->String //“,”.join[“1”,”2”,”3”] = “1,2,3”
+  componentsSeparatedByString(String)->[String] //“1,2,3”.csbs(“,”) = [“1”,”2”,”3”]
+ 
+  
+    Type conversion
+
+ Let d: Double = 37.5
+ Let f: Float = 37.5
+ Let x = Int(d)
+ Let xd = Double(x)
+ Let cgf = CGFloat(d)
+
+ Let a = Array(“abc”) // a=[“a”,”b”,”c”] I.e. array of character
+ Let s = String([“a”,”b”,”c”]) // s= “abc”
+
+ Let s= String(52) //not floats
+ Let s = “\(37.5)”
+
+
+   Assertions
+  assert( ()->Bool, “message”)
+
+ E.g. assert(vallidation()!=nil, “the validation function returned nil”)
+
+
+ Other Functions
+ Collections include Array, Dictionary, String
+ Sliceables include Array and String
+
+ Let count= countElements(collection)
+ Let sub = dropFirst(sliceabels) 
+ Let sub = dropLast(sliceabels)
+ Let first = first(collection)
+ Let prefix = prefix(sliceabel,x:Int)
+ Let suffix = suffix(sliceabels,x:Int)
+ Let reversed: Array = reverse(collection)
+ Let backwardString = String(reverse(s))
+
+
+Objective-c compatibility
+ Bridging
+ NSString  <—> String.        NSArray <—> Array<AnyObject>
+ NSDictionary <—> Dictionary<NSObject,AnyObject>
+ Int,Float,Double,Bool are all bridged to NSNumber (but not vice-versa)
+ To get from NSNumber to these types use doubleValue, intValue, etc.
+ Int, Float, Double also bridged to the c types int, float, double
+
+ Cast
+  let len = (aString as NNString).length
+  (anArray as NSArray).componentsJoinedByString(NSString)
+
+
+  Views
+  addSubview(aView: UIView).       removeFromSuperview()
+
+  Initializating a UIView
+  init(frame: CGRect)// initializer if UIView is created from code
+  init(coder: NSCoder) //initializer if UIView from a storyboard
+
+   Fun setup() {…}
+
+ Override init(frame:CGRect){ // a designed init
+     super.init(frame: frame).  setup()}
+
+ Required init(coder aDecoder: NSCoder) {. Super.Init(coder:aDecoder).  setup()}
+  
+
+  

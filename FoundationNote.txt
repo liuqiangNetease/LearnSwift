@@ -1,0 +1,17 @@
+1.  NSObject
+    Base class for all objective-c classes
+    Some advanced features will require u to subclass from NSObject
+
+2 NSNumber
+  Gernic  number-holding class
+  Let n = NSNumber(3.5)
+  Let intversion = n.intValue
+  Let doubleversion = n.doubleValue
+
+  // NSNumberFormatter
+
+
+3 NSDate
+
+
+4 NsData

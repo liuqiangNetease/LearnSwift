@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="X65-Uw-tJS">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Face View Controller-->
+        <scene sceneID="s7C-Ko-Xer">
+            <objects>
+                <viewController id="X65-Uw-tJS" customClass="FaceViewController" customModule="Face" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cll-cT-fRv"/>
+                        <viewControllerLayoutGuide type="bottom" id="dxR-tx-eX6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="g5R-vo-QmF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="9aY-R9-gPe" customClass="FaceView" customModule="Face" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="scale">
+                                        <real key="value" value="0.90000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9aY-R9-gPe" firstAttribute="bottom" secondItem="dxR-tx-eX6" secondAttribute="top" id="5zj-Q4-Kvc"/>
+                            <constraint firstItem="9aY-R9-gPe" firstAttribute="leading" secondItem="g5R-vo-QmF" secondAttribute="leading" id="Hhj-bN-D0p"/>
+                            <constraint firstItem="9aY-R9-gPe" firstAttribute="top" secondItem="g5R-vo-QmF" secondAttribute="top" id="OZg-e1-N9B"/>
+                            <constraint firstAttribute="trailing" secondItem="9aY-R9-gPe" secondAttribute="trailing" id="XSv-r3-eQb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="faceView" destination="9aY-R9-gPe" id="HeD-BM-zhH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YBn-ey-JYf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-103" y="18"/>
+        </scene>
+    </scenes>
+</document>
