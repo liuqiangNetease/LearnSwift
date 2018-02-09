@@ -10,10 +10,33 @@ import UIKit
 
 class FaceViewController: UIViewController, FaceDataSourceDelegate {
 
+    private struct Constants{
+        static let HappinessGestureScale: CGFloat = 4
+    }
+    @IBAction func changeHappiness(_ sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .ended: fallthrough
+        case .changed:
+            let translation = sender.translation(in: faceView)
+            let happinessChange = -Int(translation.y / Constants.HappinessGestureScale)
+            if happinessChange != 0{
+                happiness += happinessChange
+                sender.setTranslation(CGPoint.zero, in: faceView)
+            }
+            
+        default:
+            break
+        }
+    }
+    
+    
     @IBOutlet weak var faceView: FaceView!
     {
         didSet{
             faceView.dataSource = self
+            faceView.addGestureRecognizer(UIPinchGestureRecognizer(target: faceView, action: "scale:"))
+            //faceView.addGestureRecognizer(UIPanGestureRecognizer(target: faceView, action: "changeHappiness:"))
+            //在控件列表可以找到Pan Gesture Recognizer拖到view中
         }
     }
     

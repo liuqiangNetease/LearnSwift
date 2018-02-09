@@ -94,6 +94,8 @@ class FaceView: UIView {
         return path
     }
     
+    
+    
     //不要手动调用draw。 use setNeedsDisplay instead
     override func draw(_ rect: CGRect) {
          let facePath = UIBezierPath(arcCenter: faceCenter, radius: faceRadius, startAngle: 0, endAngle: CGFloat(2*Double.pi), clockwise: true)
@@ -108,6 +110,19 @@ class FaceView: UIView {
         let smiliness = dataSource?.smilinessForFaceView(sender: self) ?? 0.0
         let smilePath = bezierPathForSmile(fractionOfMaxSmile: smiliness)
         smilePath.stroke()
+    }
+    
+    
+    // 模拟器中按住alt加鼠标左键 就可模拟放大缩小
+    // 模拟器中按住alt+shift加鼠标左键，就可模拟双指平移
+    func scale(_ gesture: UIPinchGestureRecognizer)
+    {
+//        if gesture.state == UIGestureRecognizerState.changed
+        if gesture.state == .changed
+        {
+            scale *= gesture.scale
+            gesture.scale = 1
+        }
     }
  
 
